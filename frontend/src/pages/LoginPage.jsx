@@ -67,7 +67,6 @@ export default function LoginPage() {
           />
 
           {error ? <p>{error}</p> : null}
-          {success ? <p>{success}</p> : null}
 
           <button type="submit">Login</button>
         </form>
