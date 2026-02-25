@@ -37,13 +37,6 @@ class LoginView(APIView):
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-class LogoutView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        request.user.auth_token.delete()
-        return Response({'message': 'Logged out successfully'})
 
 class ProfileView(APIView):
     authentication_classes = [TokenAuthentication]
