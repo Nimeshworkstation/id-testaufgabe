@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useAuthStore from "../store/authStore";
+import CustomerProfile from "../components/CustomerProfile";
+import TeamProfile from "../components/TeamProfile";
+import ManagementProfile from "../components/ManagementProfile";
 
 export default function Profile() {
   const token = useAuthStore((state) => state.token);
@@ -34,16 +37,9 @@ export default function Profile() {
 
   return (
     <div>
-      <h1>Profile</h1>
-      <p>Username: {user.username}</p>
-      <p>
-        Name: {user.first_name} {user.last_name}
-      </p>
-      <p>Email: {user.email}</p>
-      <p>Role: {user.role}</p>
-      {role === "customer" && <div>CUSTOMER</div>}
-      {role === "team" && <div>TEAM</div>}
-      {role === "management" && <div>MANAGEMENT</div>}
+      {role === "customer" && <CustomerProfile user={user} />}
+      {role === "team" && <TeamProfile user={user} />}
+      {role === "management" && <ManagementProfile user={user} />}
     </div>
   );
 }
