@@ -19,3 +19,6 @@ class UserSerializer(serializers.ModelSerializer):
         if User.objects.filter(email=value).exists():
             raise serializers.ValidationError("This email is already taken.")
         return value
+    
+    def create(self, validated_data):
+        return User.objects.create_user(**validated_data)
