@@ -41,40 +41,38 @@ export default function LoginPage() {
   };
 
   return (
-    <section>
-      <div>
-        <h1>Login</h1>
+    <div>
+      <h1>Login</h1>
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
 
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
 
-          {error ? <p>{error}</p> : null}
+        {error ? <p>{error}</p> : null}
 
-          <button type="submit">Login</button>
-        </form>
+        <button type="submit">Login</button>
+      </form>
 
-        <p>
-          Dont have an account? <Link to="/signup">Signup</Link>
-        </p>
-      </div>
-    </section>
+      <p>
+        Dont have an account? <Link to="/signup">Signup</Link>
+      </p>
+    </div>
   );
 }

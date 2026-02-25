@@ -1,6 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import useAuthStore from "../store/authStore";
+import RequestForm from "./RequestForm";
 
-export default function CustomerProfile({ user }) {
+export default function CustomerProfile({ user, requestdata, getdata }) {
+  const token = useAuthStore((state) => state.token);
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    stadium_screen: "screen_main",
+    broadcast_date: "",
+    notes: "",
+  });
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await axios.post("http://127.0.0.1:8000/api/request/", formData, {
+        headers: { Authorization: `Token ${token}` },
+      });
+      setShowForm(false);
+      await getdata();
+      setFormData({
+        title: "",
+        description: "",
+        stadium_screen: "screen_main",
+        broadcast_date: "",
+        notes: "",
+      });
+    } catch (err) {
+      setError("Failed to submit request.");
+    }
+  };
+
   return (
     <div>
       <h1>Profile</h1>
@@ -10,6 +49,61 @@ export default function CustomerProfile({ user }) {
       </p>
       <p>Email: {user.email}</p>
       <p>Role: {user.role}</p>
+      <hr />
+      <h2>Submitted Requests</h2>
+      {requestdata && requestdata.length > 0 ? (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Stadium Screen</th>
+              <th>Status</th>
+              <th>Broadcast Date</th>
+              <th>Final Product</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+          <tbody>
+            {requestdata.map((request, index) => (
+              <tr key={request.id}>
+                <td>{index + 1}</td>
+                <td>{request.title}</td>
+                <td>{request.description}</td>
+                <td>{request.stadium_screen}</td>
+                <td>{request.status}</td>
+                <td>{request.broadcast_date}</td>
+                <td>
+                  {request.finished_file ? (
+                    <span>Download</span>
+                  ) : (
+                    "Not ready yet"
+                  )}
+                </td>
+                <td>{new Date(request.created_at).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No requests submitted yet.</p>
+      )}
+      <hr />
+      <button
+        className="btn btn-primary"
+        onClick={() => setShowForm(!showForm)}
+      >
+        {showForm ? "Cancel" : "New Request"}
+      </button>
+      {showForm && (
+        <RequestForm
+          handleChange={handleChange}
+          handleSubmit={handleSubmit}
+          error={error}
+          formData={formData}
+        />
+      )}
     </div>
   );
 }

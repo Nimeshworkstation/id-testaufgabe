@@ -38,83 +38,81 @@ export default function SignupPage() {
   };
 
   return (
-    <section>
-      <div>
-        <h1>Create Account</h1>
+    <div>
+      <h1>Create Account</h1>
 
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            name="username"
-            type="text"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          value={formData.username}
+          onChange={handleChange}
+          required
+        />
 
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
 
-          <label htmlFor="first_name">First Name</label>
-          <input
-            id="first_name"
-            name="first_name"
-            type="text"
-            value={formData.first_name}
-            onChange={handleChange}
-            required
-          />
+        <label htmlFor="first_name">First Name</label>
+        <input
+          id="first_name"
+          name="first_name"
+          type="text"
+          value={formData.first_name}
+          onChange={handleChange}
+          required
+        />
 
-          <label htmlFor="last_name">Last Name</label>
-          <input
-            id="last_name"
-            name="last_name"
-            type="text"
-            value={formData.last_name}
-            onChange={handleChange}
-            required
-          />
+        <label htmlFor="last_name">Last Name</label>
+        <input
+          id="last_name"
+          name="last_name"
+          type="text"
+          value={formData.last_name}
+          onChange={handleChange}
+          required
+        />
 
-          <label htmlFor="role">Role</label>
-          <select
-            id="role"
-            name="role"
-            value={formData.role}
-            onChange={handleChange}
-            required
-          >
-            <option value="customer">Customer</option>
-            <option value="team">Creative Team</option>
-            <option value="management">Management</option>
-          </select>
+        <label htmlFor="role">Role</label>
+        <select
+          id="role"
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          required
+        >
+          <option value="customer">Customer</option>
+          <option value="team">Creative Team</option>
+          <option value="management">Management</option>
+        </select>
 
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
 
-          {error ? <p>{error}</p> : null}
+        {error ? <p>{error}</p> : null}
 
-          <button type="submit">Sign Up</button>
-        </form>
+        <button type="submit">Sign Up</button>
+      </form>
 
-        <p>
-          Already have an account? <Link to="/login">Login</Link>
-        </p>
-      </div>
-    </section>
+      <p>
+        Already have an account? <Link to="/login">Login</Link>
+      </p>
+    </div>
   );
 }

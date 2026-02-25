@@ -10,25 +10,37 @@ export default function Profile() {
   const role = useAuthStore((state) => state.role);
   const setRole = useAuthStore((state) => state.setRole);
   const [user, setUser] = useState(null);
+  const [requestdata, setRequestData] = useState(null);
   const [error, setError] = useState("");
-
+  const getdata = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/api/request/", {
+        headers: { Authorization: `Token ${token}` },
+      });
+      setRequestData(response.data);
+    } catch (err) {
+      setError("Failed to load data.");
+    }
+  };
+  const getProfile = async () => {
+    try {
+      const response = await axios.get(
+        "http://127.0.0.1:8000/api/users/profile/",
+        {
+          headers: { Authorization: `Token ${token}` },
+        },
+      );
+      setUser(response.data);
+      setRole(response.data.role);
+    } catch (err) {
+      setError("Failed to load profile.");
+    }
+  };
   useEffect(() => {
     if (!token) return;
-    const getProfile = async () => {
-      try {
-        const response = await axios.get(
-          "http://127.0.0.1:8000/api/users/profile/",
-          {
-            headers: { Authorization: `Token ${token}` },
-          },
-        );
-        setUser(response.data);
-        setRole(response.data.role);
-      } catch (err) {
-        setError("Failed to load profile.");
-      }
-    };
+
     getProfile();
+    getdata();
   }, []);
 
   if (!token) return <p>Please login first.</p>;
@@ -37,9 +49,19 @@ export default function Profile() {
 
   return (
     <div>
-      {role === "customer" && <CustomerProfile user={user} />}
-      {role === "team" && <TeamProfile user={user} />}
-      {role === "management" && <ManagementProfile user={user} />}
+      {role === "customer" && (
+        <CustomerProfile
+          user={user}
+          requestdata={requestdata}
+          getdata={getdata}
+        />
+      )}
+      {role === "team" && (
+        <TeamProfile user={user} requestdata={requestdata} getdata={getdata} />
+      )}
+      {role === "management" && (
+        <ManagementProfile user={user} requestdata={requestdata} />
+      )}
     </div>
   );
 }
