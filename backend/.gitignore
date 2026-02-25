@@ -1,7 +1,8 @@
 .venv/
 .env
 .env.*
-
+.uploads/
+uploads
 __pycache__/
 *.py[cod]
 *.pyo
