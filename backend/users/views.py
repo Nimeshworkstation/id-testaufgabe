@@ -21,6 +21,7 @@ class RegisterView(APIView):
 
 
 class LoginView(APIView):
+    authentication_classes=[]
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -28,7 +29,6 @@ class LoginView(APIView):
         password = request.data.get('password')
         user = authenticate(request, username=username, password=password)
         if user:
-            login(request, user)
             token, created = Token.objects.get_or_create(user=user)
             return Response({
                 'token': token.key,
