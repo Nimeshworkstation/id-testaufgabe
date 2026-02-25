@@ -40,7 +40,6 @@ class MediaRequestDetailView(APIView):
 
     def patch(self, request, pk):
         media_request = get_object_or_404(MediaRequest, pk=pk)
-        breakpoint()
         if request.user.role != "team":
             return Response({"error": "You are not team member"}, status=status.HTTP_403_FORBIDDEN)
 
@@ -53,7 +52,6 @@ class MediaRequestDetailView(APIView):
             data["finished_file"] = new_finished_file
 
         if data:
-            breakpoint()
             serializer = MediaRequestSerializer(media_request, data=data, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
