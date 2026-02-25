@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
+import useAuthStore from "../store/authStore";
 
 export default function LoginPage() {
   let navigate = useNavigate();
-
+  const login = useAuthStore((state) => state.login);
   const initialForm = {
     username: "",
     password: "",
@@ -13,8 +14,6 @@ export default function LoginPage() {
 
   const [formData, setFormData] = useState(initialForm);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -23,19 +22,14 @@ export default function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
-    setSuccess("");
 
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/api/users/login/",
         formData,
       );
-
-      const token = response.data?.token;
-      if (token) {
-        localStorage.setItem("token", token);
-      }
-      navigate("/profile");
+      login(response.data.token);
+      navigate("/");
     } catch (requestError) {
       const apiError = requestError.response?.data;
       if (typeof apiError === "string") setError(apiError);
@@ -79,7 +73,7 @@ export default function LoginPage() {
         </form>
 
         <p>
-          Don&apos;t have an account? <Link to="/signup">Signup</Link>
+          Dont have an account? <Link to="/signup">Signup</Link>
         </p>
       </div>
     </section>

@@ -5,17 +5,34 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import Profile from "./pages/Profile";
+import useAuthStore from "./store/authStore";
 
 function App() {
-  console.log("rerendered");
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   return (
     <>
       <Navbar />
       <Routes>
-        <Route index path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/"
+          element={!isAuthenticated ? <HomePage /> : <Navigate to="/profile" />}
+        />
+        <Route
+          path="/login"
+          element={
+            !isAuthenticated ? <LoginPage /> : <Navigate to="/profile" />
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            !isAuthenticated ? <SignupPage /> : <Navigate to="/profile" />
+          }
+        />
+        <Route
+          path="/profile"
+          element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
+        />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
