@@ -1,7 +1,7 @@
 
 from rest_framework import serializers
 from .models import MediaRequest,Asset
-
+from users.serializers import UserSerializer
 class AssetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Asset
@@ -10,6 +10,7 @@ class AssetSerializer(serializers.ModelSerializer):
 
 class MediaRequestSerializer(serializers.ModelSerializer):
     assets = AssetSerializer(many=True, read_only=True)
+    customer = UserSerializer(read_only=True)  # add this
 
     class Meta:
         model = MediaRequest
