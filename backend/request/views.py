@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django.shortcuts import get_object_or_404
-
+from .emails import send_new_request_email, send_onprogress_request_email, send_completed_request_email
 
 from .models import MediaRequest,Asset
 from .serializers import MediaRequestSerializer
@@ -29,6 +29,7 @@ class MediaRequestListView(APIView):
                 files = request.FILES.getlist('files')  
                 for f in files:
                     Asset.objects.create(request=media_request, file=f)
+                send_new_request_email(media_request)
                 return Response(MediaRequestSerializer(media_request).data, status=status.HTTP_201_CREATED)
         return Response({'error':'you are not customer'}, status=status.HTTP_403_FORBIDDEN)
 
@@ -54,7 +55,14 @@ class MediaRequestDetailView(APIView):
         if data:
             serializer = MediaRequestSerializer(media_request, data=data, partial=True)
             serializer.is_valid(raise_exception=True)
-            serializer.save()
+            updated_request = serializer.save()
+            try:
+                if new_status == 'in_progress':
+                    send_onprogress_request_email(updated_request)
+                elif new_status == 'completed':
+                    send_completed_request_email(updated_request)
+            except Exception:
+                pass
             return Response(serializer.data)
         return Response({'error':'empty fields not allowed'}, status=status.HTTP_400_BAD_REQUEST)
 
