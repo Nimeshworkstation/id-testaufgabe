@@ -26,6 +26,10 @@ export default function TeamProfile({ user, requestdata, getdata }) {
     await getdata();
   };
 
+  const handleSubmit = () => {
+    console.log("download");
+  };
+
   return (
     <div>
       <h1>Profile</h1>
@@ -47,6 +51,7 @@ export default function TeamProfile({ user, requestdata, getdata }) {
               <th>Description</th>
               <th>Stadium Screen</th>
               <th>Status</th>
+              <th>Assets</th>
               <th>Broadcast Date</th>
               <th>Final Product</th>
               <th>Created</th>
@@ -65,6 +70,13 @@ export default function TeamProfile({ user, requestdata, getdata }) {
                 <td>{request.description}</td>
                 <td>{request.stadium_screen}</td>
                 <td>{request.status}</td>
+                <td>
+                  {request.assets && request.assets.length > 0 ? (
+                    <button onClick={handledownload}>Download</button>
+                  ) : (
+                    "No assets"
+                  )}
+                </td>{" "}
                 <td>{request.broadcast_date}</td>
                 <td>
                   {request.finished_file ? (

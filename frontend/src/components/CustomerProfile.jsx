@@ -16,6 +16,10 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
   const [error, setError] = useState("");
   const [files, setFiles] = useState(null);
 
+  const handleDownload = () => {
+    console.log("download");
+  };
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -102,7 +106,7 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
                 <td>{request.broadcast_date}</td>
                 <td>
                   {request.finished_file ? (
-                    <span>Download</span>
+                    <button onClick={handleDownload}>Download</button>
                   ) : (
                     "Not ready yet"
                   )}
