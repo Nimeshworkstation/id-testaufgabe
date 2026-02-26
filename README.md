@@ -284,14 +284,6 @@ Role-based profile rendering in `Profile.jsx`:
 
 ---
 
-## Known Implementation Notes
-
-- Frontend currently mixes imports from `react-router` and `react-router-dom`. Keep one style for consistency.
-- In `LoginPage`, store role on login (`login(token, user.role)`) so role-based rendering works immediately.
-- In `Profile.jsx`, include hook dependencies in `useEffect` to avoid stale state/lint warnings.
-
----
-
 ## Quick Test Users (Example JSON)
 
 ```json
@@ -335,5 +327,7 @@ No license file is currently included.
 
 ## Note
 
-- Claude AI was used as an AI tool to generate Readme.md, boilerplate code and basic HTML frontend elements.
-- The app is functional, but currently has minimal/no final CSS styling. CSS improvements will be added soon.
+- Claude AI was used to generate parts of `README.md`, boilerplate code, and basic HTML frontend elements.
+- The app is functional, but final CSS styling is still pending and will be added soon.
+- Asset download for teams and uploaded-asset display for customers are not implemented yet and will be added soon.
+- Django Admin can be used to inspect data, analyze records, and manage roles until those UI features are implemented.
