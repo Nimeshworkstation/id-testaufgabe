@@ -3,6 +3,7 @@ import axios from "axios";
 import useAuthStore from "../store/authStore";
 
 export default function TeamProfile({ user, requestdata, getdata }) {
+  if (!user) return <p>Loading...</p>;
   const token = useAuthStore((state) => state.token);
 
   const handleStatusChange = async (requestId, newStatus) => {
