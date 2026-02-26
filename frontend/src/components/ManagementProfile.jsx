@@ -1,6 +1,8 @@
 import React from "react";
 
 export default function ManagementProfile({ user, requestdata }) {
+  if (!user) return <p>Loading...</p>;
+
   return (
     <div>
       <h1>Profile</h1>
