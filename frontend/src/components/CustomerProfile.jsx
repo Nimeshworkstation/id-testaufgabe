@@ -45,15 +45,17 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
     setFiles(e.target.files);
   };
 
+  if (!user) return <p>Loading...</p>;
+
   return (
     <div>
       <h1>Profile</h1>
-      <p>Username: {user.username}</p>
+      <p>Username: {user?.username}</p>
       <p>
-        Name: {user.first_name} {user.last_name}
+        Name: {user?.first_name} {user?.last_name}
       </p>
-      <p>Email: {user.email}</p>
-      <p>Role: {user.role}</p>
+      <p>Email: {user?.email}</p>
+      <p>Role: {user?.role}</p>
       <hr />
       <h2>Submitted Requests</h2>
       {requestdata && requestdata.length > 0 ? (
@@ -71,7 +73,7 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
             </tr>
           </thead>
           <tbody>
-            {requestdata.map((request, index) => (
+            {requestdata?.map((request, index) => (
               <tr key={request.id}>
                 <td>{index + 1}</td>
                 <td>{request.title}</td>
