@@ -68,6 +68,26 @@ python manage.py runserver
 
 Backend runs at: `http://127.0.0.1:8000`
 
+## Django Admin (Superuser)
+
+Create an admin account:
+
+```bash
+cd backend
+python manage.py createsuperuser
+```
+
+You will be prompted for:
+
+- username
+- email (optional)
+- password
+
+After creation:
+
+- login at `http://127.0.0.1:8000/admin/`
+- manage users, roles, media requests, and uploaded assets from Django Admin
+
 ### Environment Variables
 
 Create `backend/.env` with:
