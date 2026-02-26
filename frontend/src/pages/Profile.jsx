@@ -48,7 +48,7 @@ export default function Profile() {
   if (!user) return <p>Loading...</p>;
 
   return (
-    <div>
+    <>
       {role === "customer" && (
         <CustomerProfile
           user={user}
@@ -62,6 +62,6 @@ export default function Profile() {
       {role === "management" && (
         <ManagementProfile user={user} requestdata={requestdata} />
       )}
-    </div>
+    </>
   );
 }
