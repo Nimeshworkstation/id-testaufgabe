@@ -2,7 +2,11 @@ from django.test import TestCase
 from users.models import RoleChoice
 from .factories import UserFactory, TeamUserFactory, ManagementUserFactory, CustomerUserFactory
 from .serializers import UserSerializer
+from rest_framework.test import APIClient
+from users.factories import CustomerUserFactory
+
 class UserModelTest(TestCase):
+    
 
     def test_customer_role(self):
         user = CustomerUserFactory()
@@ -61,4 +65,41 @@ class UserSerializerTest(TestCase):
         serializer = UserSerializer(data=data)
         self.assertFalse(serializer.is_valid())
         self.assertIn("email", serializer.errors)
+
+
+
+class UserViewTest(TestCase):
+
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_register(self):
+        data = {
+            "username": "newuser",
+            "email": "new@example.com",
+            "first_name": "Test",
+            "last_name": "User",
+            "password": "testpass123",
+            "role": "customer",
+        }
+        response = self.client.post("/api/users/register/", data)
+        self.assertEqual(response.status_code, 201)
+
+    def test_login(self):
+        user = CustomerUserFactory()
+        response = self.client.post("/api/users/login/", {
+            "username": user.username,
+            "password": "testpass123",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("token", response.data)
+
+    def test_login_fail(self):
+        user = CustomerUserFactory()
+        response = self.client.post("/api/users/login/", {
+            "username": user.username,
+            "password": "password",
+        })
+        self.assertEqual(response.status_code,401)
+        self.assertIn("error", response.data)
 
