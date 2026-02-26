@@ -364,18 +364,18 @@ The server will only need Docker installed. No manual code deployment will be re
 
 The following secrets will need to be configured in the repository under **Settings → Secrets and variables → Actions**:
 
-| Secret | Description |
-|---|---|
-| `DOCKER_USERNAME` | Your Docker Hub username |
-| `DOCKER_HUB_TOKEN` | Your Docker Hub access token |
-| `SERVER_IP` | The IP address of your DigitalOcean server |
-| `SSH_PRIVATE_KEY` | The private SSH key used to access the server |
-| `SECRET_KEY` | The Django secret key |
-| `ALLOWED_HOSTS` | The allowed hosts for the Django application |
+| Secret             | Description                                   |
+| ------------------ | --------------------------------------------- |
+| `DOCKER_USERNAME`  | Your Docker Hub username                      |
+| `DOCKER_HUB_TOKEN` | Your Docker Hub access token                  |
+| `SERVER_IP`        | The IP address of your DigitalOcean server    |
+| `SSH_PRIVATE_KEY`  | The private SSH key used to access the server |
+| `SECRET_KEY`       | The Django secret key                         |
+| `ALLOWED_HOSTS`    | The allowed hosts for the Django application  |
 
 ## Note
 
-- Claude AI was used to generate parts of `README.md`, boilerplate code, and basic HTML frontend elements.
+- Claude AI was used to generate parts of `README.md`, boilerplate code, and basic HTML frontend elements and for devops tasks.
 - The app is functional, but final CSS styling is still pending and will be added soon.
 - Asset download for teams and uploaded-asset display for customers are not implemented yet and will be added soon.
 - Django Admin can be used to inspect data, analyze records, and manage roles until those UI features are implemented.
