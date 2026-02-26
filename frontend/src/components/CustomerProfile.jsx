@@ -77,10 +77,14 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
           <p>Role: {user.role}</p>
           <hr />
           <button
-            className="btn btn-primary w-100"
+            className={`btn ${showForm ? "btn-danger" : "btn-success"} w-100`}
             onClick={() => setShowForm(!showForm)}
           >
-            {showForm ? "Cancel" : "New Request"}
+            {showForm ? (
+              <span>Cancel</span>
+            ) : (
+              <span className="btn-success">New Request</span>
+            )}
           </button>
           {showForm && (
             <RequestForm
