@@ -79,6 +79,7 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
               <th>Title</th>
               <th>Description</th>
               <th>Stadium Screen</th>
+              <th>Assets</th>
               <th>Status</th>
               <th>Broadcast Date</th>
               <th>Final Product</th>
@@ -92,6 +93,11 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
                 <td>{request.title}</td>
                 <td>{request.description}</td>
                 <td>{request.stadium_screen}</td>
+                <td>
+                  {request.assets && request.assets.length > 0
+                    ? `${request.assets.length} file(s) uploaded`
+                    : "No assets"}
+                </td>{" "}
                 <td>{request.status}</td>
                 <td>{request.broadcast_date}</td>
                 <td>
