@@ -14,6 +14,7 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
     notes: "",
   });
   const [error, setError] = useState("");
+  const [files, setFiles] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,6 +39,10 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
     } catch (err) {
       setError("Failed to submit request.");
     }
+  };
+
+  const handleFileChange = (e) => {
+    setFiles(e.target.files);
   };
 
   return (
@@ -100,6 +105,7 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
         <RequestForm
           handleChange={handleChange}
           handleSubmit={handleSubmit}
+          handleFileChange={handleFileChange}
           error={error}
           formData={formData}
         />

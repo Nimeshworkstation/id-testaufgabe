@@ -3,6 +3,7 @@ import React from "react";
 export default function RequestForm({
   handleChange,
   handleSubmit,
+  handleFileChange,
   error,
   formData,
 }) {
@@ -54,6 +55,15 @@ export default function RequestForm({
             name="broadcast_date"
             value={formData.broadcast_date}
             onChange={handleChange}
+          />
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Upload Assets</label>
+          <input
+            className="form-control"
+            type="file"
+            multiple
+            onChange={handleFileChange}
           />
         </div>
         <div className="mb-3">
