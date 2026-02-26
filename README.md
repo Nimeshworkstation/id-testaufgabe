@@ -345,6 +345,34 @@ Role-based profile rendering in `Profile.jsx`:
 
 No license file is currently included.
 
+## Deployment
+
+This project will use a GitHub Actions CI/CD pipeline to automatically deploy to a DigitalOcean server on every push to the `master` branch.
+
+### How it will work
+
+1. **Code will be pushed to the `master` branch** — this will trigger the GitHub Actions workflow automatically.
+2. **Docker image will be built** — GitHub Actions will build a Docker image from the project's `Dockerfile`.
+3. **Image will be pushed to Docker Hub** — the built image will be published to Docker Hub under `smnighim/id-testaufgabe:latest`.
+4. **Server will be updated** — GitHub Actions will SSH into the DigitalOcean server, pull the latest image, stop and remove the old container, and start a new one with the updated image.
+
+### Server setup
+
+The server will only need Docker installed. No manual code deployment will be required — every new release will be deployed automatically by the pipeline.
+
+### Required GitHub Secrets
+
+The following secrets will need to be configured in the repository under **Settings → Secrets and variables → Actions**:
+
+| Secret | Description |
+|---|---|
+| `DOCKER_USERNAME` | Your Docker Hub username |
+| `DOCKER_HUB_TOKEN` | Your Docker Hub access token |
+| `SERVER_IP` | The IP address of your DigitalOcean server |
+| `SSH_PRIVATE_KEY` | The private SSH key used to access the server |
+| `SECRET_KEY` | The Django secret key |
+| `ALLOWED_HOSTS` | The allowed hosts for the Django application |
+
 ## Note
 
 - Claude AI was used to generate parts of `README.md`, boilerplate code, and basic HTML frontend elements.
