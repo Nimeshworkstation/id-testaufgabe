@@ -23,11 +23,24 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
     try {
-      await axios.post("http://127.0.0.1:8000/api/request/", formData, {
+      const data = new FormData();
+      data.append("title", formData.title);
+      data.append("description", formData.description);
+      data.append("stadium_screen", formData.stadium_screen);
+      data.append("broadcast_date", formData.broadcast_date);
+      data.append("notes", formData.notes);
+      if (files) {
+        for (let file of files) {
+          data.append("files", file);
+        }
+      }
+      await axios.post("http://127.0.0.1:8000/api/request/", data, {
         headers: { Authorization: `Token ${token}` },
       });
       setShowForm(false);
+      setFiles(null);
       await getdata();
       setFormData({
         title: "",
