@@ -1,0 +1,28 @@
+name: Build Docker Image
+
+on:
+  workflow_run:
+    workflows: ["ID Testaufgabe CI"]
+    types:
+      - completed
+
+jobs:
+  publish_image:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Logs into DockerHub
+        run: |
+          docker login -u smnighim -p ${{ secrets.DOCKER_HUB_TOKEN}}
+
+      - name: Build and push the backend image
+        run: |
+          docker build ./backend -t smnighim/id-testaufgabe-backend:latest
+          docker push smnighim/id-testaufgabe-backend:latest
+
+      - name: Build and push the frontend image
+        run: |
+          docker build ./frontend -t smnighim/id-testaufgabe-frontend:latest 
+          docker push smnighim/id-testaufgabe-frontend:latest
