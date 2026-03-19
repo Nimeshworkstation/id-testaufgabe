@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import useAuthStore from "../store/authStore";
-
+import api from "../api";
 export default function TeamProfile({ user, requestdata, getdata }) {
   const [error, setError] = useState("");
   if (!user) return <p>Loading...</p>;
