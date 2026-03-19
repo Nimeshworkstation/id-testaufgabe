@@ -25,12 +25,9 @@ export default function Profile() {
   };
   const getProfile = async () => {
     try {
-      const response = await axios.get(
-        "http://127.0.0.1:8000/api/users/profile/",
-        {
-          headers: { Authorization: `Token ${token}` },
-        },
-      );
+      const response = await api.get("/api/users/profile/", {
+        headers: { Authorization: `Token ${token}` },
+      });
       setUser(response.data);
       setRole(response.data.role);
     } catch (err) {
