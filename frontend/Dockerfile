@@ -51,8 +51,7 @@ RUN npm run build
 # Serve the built application with nginx
 FROM nginx:alpine
 COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 # Run the application.
-
-CMD ["nginx", "-g", "daemon off;"]
 
