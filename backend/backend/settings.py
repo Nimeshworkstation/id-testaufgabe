@@ -159,8 +159,10 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 
-# add near STATIC_URL
-STATIC_URL = 'static/'
+CSRF_TRUSTED_ORIGINS = [
+    'https://lalbandibazar.com',
+    'https://www.lalbandibazar.com',
+]
 
 
 MEDIA_URL = '/media/'
