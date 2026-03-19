@@ -20,14 +20,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 DEBUG = os.environ.get('DEBUG', '1')
-ALLOWED_HOSTS = ['www.lalbandibazar.com', 'lalbandibazar.com', 'localhost', '127.0.0.1']# Quick-start development settings - unsuitable for production
+ALLOWED_HOSTS = ['www.lalbandibazar.com', 'lalbandibazar.com', 'localhost', '127.0.0.1','209.38.235.114']# Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-#s5xv(+@(e-(r__r15&n^1^0_ct=j8=l$pb*%%^1941*2(o_dy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 
 
