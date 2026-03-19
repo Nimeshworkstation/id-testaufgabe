@@ -1,4 +1,4 @@
-name: Deploy to Server lalbandi
+name: Deploy to Server lalbandi ch
 on:
   workflow_run:
     workflows: ["Build Docker Image"]
