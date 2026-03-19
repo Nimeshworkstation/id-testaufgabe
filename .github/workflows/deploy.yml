@@ -1,5 +1,4 @@
 name: Deploy to Server lalbandi
-
 on:
   workflow_run:
     workflows: ["Build Docker Image"]
@@ -18,23 +17,11 @@ jobs:
           username: root
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            # Pull latest images
-            docker pull smnighim/id-testaufgabe-backend:latest
-            docker pull smnighim/id-testaufgabe-frontend:latest
-
-            # Restart backend
-            docker stop backend || true
-            docker rm backend || true
-            docker run -d --name backend -p 8000:8000 \
-              -e DEBUG=False \
-              -e SECRET_KEY="${{ secrets.SECRET_KEY }}" \
-              -e ALLOWED_HOSTS="${{ secrets.ALLOWED_HOSTS }}" \
-              -e EMAIL_HOST_USER="${{ secrets.EMAIL_HOST_USER }}" \
-              -e EMAIL_HOST_PASSWORD="${{ secrets.EMAIL_HOST_PASSWORD }}" \
-              smnighim/id-testaufgabe-backend:latest
-
-            # Restart frontend
-            docker stop frontend || true
-            docker rm frontend || true
-            docker run -d --name frontend -p 3000:80 \
-              smnighim/id-testaufgabe-frontend:latest
+            cd /app
+            echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" > .env
+            echo "ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}" >> .env
+            echo "EMAIL_HOST_USER=${{ secrets.EMAIL_HOST_USER }}" >> .env
+            echo "EMAIL_HOST_PASSWORD=${{ secrets.EMAIL_HOST_PASSWORD }}" >> .env
+            docker compose pull
+            docker compose down
+            docker compose up -d
