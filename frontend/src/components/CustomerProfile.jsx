@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import useAuthStore from "../store/authStore";
 import RequestForm from "./RequestForm";
+import api from "../api";
 
 export default function CustomerProfile({ user, requestdata, getdata }) {
   const token = useAuthStore((state) => state.token);
@@ -40,7 +41,7 @@ export default function CustomerProfile({ user, requestdata, getdata }) {
           data.append("files", file);
         }
       }
-      await axios.post("http://127.0.0.1:8000/api/request/", data, {
+      await api.post("/api/request/", data, {
         headers: { Authorization: `Token ${token}` },
       });
       setShowForm(false);

@@ -8,8 +8,8 @@ export default function TeamProfile({ user, requestdata, getdata }) {
   const token = useAuthStore((state) => state.token);
   const handleStatusChange = async (requestId, newStatus) => {
     try {
-      await axios.patch(
-        `http://127.0.0.1:8000/api/request/${requestId}/`,
+      await api.patch(
+        `/api/request/${requestId}/`,
         { status: newStatus },
         { headers: { Authorization: `Token ${token}` } },
       );
@@ -22,11 +22,9 @@ export default function TeamProfile({ user, requestdata, getdata }) {
     try {
       const formData = new FormData();
       formData.append("finished_file", file);
-      await axios.patch(
-        `http://127.0.0.1:8000/api/request/${requestId}/`,
-        formData,
-        { headers: { Authorization: `Token ${token}` } },
-      );
+      await api.patch(`/api/request/${requestId}/`, formData, {
+        headers: { Authorization: `Token ${token}` },
+      });
       await getdata();
     } catch (err) {
       setError("Failed to upload file.");

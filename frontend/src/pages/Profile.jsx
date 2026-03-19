@@ -4,6 +4,7 @@ import useAuthStore from "../store/authStore";
 import CustomerProfile from "../components/CustomerProfile";
 import TeamProfile from "../components/TeamProfile";
 import ManagementProfile from "../components/ManagementProfile";
+import api from "../api";
 
 export default function Profile() {
   const token = useAuthStore((state) => state.token);
@@ -14,7 +15,7 @@ export default function Profile() {
   const [error, setError] = useState("");
   const getdata = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:8000/api/request/", {
+      const response = await api.get("/api/request/", {
         headers: { Authorization: `Token ${token}` },
       });
       setRequestData(response.data);

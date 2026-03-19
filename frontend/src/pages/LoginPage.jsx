@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router";
 import useAuthStore from "../store/authStore";
+import api from "../api";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -18,10 +19,7 @@ export default function LoginPage() {
     event.preventDefault();
     setError("");
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/api/users/login/",
-        formData,
-      );
+      const response = await api.post("/api/users/login/", formData);
       login(response.data.token, response.data.user.role);
       navigate("/");
     } catch (requestError) {
